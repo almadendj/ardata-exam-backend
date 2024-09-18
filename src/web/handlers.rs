@@ -23,14 +23,37 @@ pub async fn get_gas_price() -> Result<Json<Value>> {
     };
 
     let rpc_url = format!("https://eth-mainnet.g.alchemy.com/v2/{api_key}");
-    let provider = Provider::try_from(rpc_url).unwrap();
+    let provider = Provider::try_from(rpc_url)?;
 
-    let gas_price = provider.get_gas_price().await.unwrap();
+    let gas_price = provider.get_gas_price().await?;
 
     let body = Json(json!({
         "result": {
             "success": true,
             "gas_price": gas_price.to_string()
+        }
+    }));
+
+    Ok(body)
+}
+
+pub async fn get_block_number() -> Result<Json<Value>> {
+    dotenv().ok();
+    println!("->> {:<12} - get_block_number", "HANDLER");
+
+    let api_key = match env::var("API_KEY") {
+        Ok(api_key) => api_key,
+        Err(_) => return Err(Error::NoApiKey),
+    };
+
+    let rpc_url = format!("https://eth-mainnet.g.alchemy.com/v2/{api_key}");
+    let provider = Provider::try_from(rpc_url)?;
+    let block_number = provider.get_block_number().await?;
+
+    let body = Json(json!({
+        "result": {
+            "success": true,
+            "block_number": block_number.to_string()
         }
     }));
 

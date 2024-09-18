@@ -6,6 +6,7 @@ async fn quick_dev() -> Result<()> {
 
     hc.do_get("/").await?.print().await?;
     hc.do_get("/get-gas-price").await?.print().await?;
+    hc.do_get("/get-block-number").await?.print().await?;
 
     Ok(())
 }
