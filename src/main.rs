@@ -10,7 +10,7 @@ mod web;
 
 #[tokio::main]
 async fn main() {
-    let routes_hello = Router::new()
+    let routes = Router::new()
         .merge(web::routes::routes())
         .fallback_service(routes_static());
 
@@ -19,7 +19,7 @@ async fn main() {
 
     println!("->> LISTENING on {addr}\n");
 
-    axum::serve(listener, routes_hello).await.unwrap();
+    axum::serve(listener, routes).await.unwrap();
 }
 
 fn routes_static() -> Router {
