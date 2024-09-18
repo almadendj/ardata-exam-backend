@@ -7,4 +7,5 @@ pub fn routes() -> Router {
         .route("/", get(handlers::hello_world))
         .route("/get-gas-price", get(handlers::get_gas_price))
         .route("/get-block-number", get(handlers::get_block_number))
+        .route("/get-balance/:address", get(handlers::get_balance))
 }
