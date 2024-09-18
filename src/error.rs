@@ -7,7 +7,7 @@ pub type Result<T> = core::result::Result<T, Error>;
 
 #[derive(Debug)]
 pub enum Error {
-    // TODO: Add error types here
+    NoApiKey,
 }
 
 impl IntoResponse for Error {
