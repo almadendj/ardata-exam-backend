@@ -13,7 +13,7 @@ pub enum Error {
     NoApiKey,
     NoApiUrl,
     ProviderError(String),
-    UrlParseError(String),
+    AddressParseError(String),
     UnhandledError,
 }
 
@@ -30,10 +30,7 @@ impl IntoResponse for Error {
                 StatusCode::BAD_GATEWAY,
                 into_json("Something went wrong.".to_string()),
             ),
-            Error::UrlParseError(_) => (
-                StatusCode::BAD_REQUEST,
-                into_json("Wrong API url".to_string()),
-            ),
+            Error::AddressParseError(msg) => (StatusCode::BAD_REQUEST, into_json(msg)),
             Error::NoApiUrl => (
                 StatusCode::BAD_REQUEST,
                 into_json("API url is missing.".to_string()),
@@ -56,7 +53,7 @@ fn into_json(message: String) -> Json<Value> {
 
 impl From<ParseError> for Error {
     fn from(value: ParseError) -> Self {
-        Error::UrlParseError(value.to_string())
+        Error::AddressParseError(value.to_string())
     }
 }
 

@@ -34,7 +34,7 @@ pub async fn get_balance(Path(address): Path<String>) -> Result<Json<Value>> {
 
     let address = address
         .parse::<Address>()
-        .map_err(|_| Error::UrlParseError("Invalid Ethereum Address".to_string()))?;
+        .map_err(|_| Error::AddressParseError("Invalid Ethereum Address".to_string()))?;
 
     let balance = provider.get_balance(address, None).await?;
 
