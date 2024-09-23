@@ -13,7 +13,7 @@ serde = { version = "1", features = ["derive"]}
 ethers = {version = "2"}
 serde_json = "1"
 axum = "0.7"
-tower-http = {version = "0.5", features = ["fs"]}
+tower-http = {version = "0.5", features = ["fs", "full"]}
 dotenv = "0.15"
 url = "2.5"
 
